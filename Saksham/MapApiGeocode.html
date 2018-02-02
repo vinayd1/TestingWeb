@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Geocoding service</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <style>
+
+        *{
+            box-sizing:border-box;
+        }
+        #map {
+            min-height:100%;
+            width:100%;
+            position:absolute;
+            z-index:5;
+        }
+        /* Optional: Makes the sample page fill the window. */
+        html, body {
+            min-height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        .floating-panel {
+            position: absolute;
+            top: 10px;
+            left: 30%;
+            z-index: 50;
+            background-color: #fff;
+            padding: 5px;
+            border: 1px solid #999;
+            text-align: center;
+            font-family: 'Roboto','sans-serif';
+            padding-left: 10px;
+        }
+        #Info{
+            position:absolute;
+            min-height:100%;
+            z-index:100;
+            background-color: rgba(0, 0, 0, 0.8);
+            left:-40%;
+            width:40%;
+            color:white;
+            }
+        @media (max-width: 970px) and (min-width:750px)
+        {
+            #Info{
+                position:absolute;
+                min-height:100%;
+                z-index:100;
+                background-color: rgba(0, 0, 0, 0.8);
+                left:-60%;
+                width:60%;
+                color:white;
+            }
+            .animate{
+
+                border-radius:2%;
+                opacity:0.9 !important;
+                animation:openWindow;
+                padding:15px;
+                animation-duration:1500ms;
+                animation-iteration-count: 1;
+                left:0%   !important;
+            }
+
+            @keyframes openWindow{
+
+                0%{ left:-60%;}
+                100%{left:0%;}
+            }
+
+        }
+        @media (max-width: 750px)
+        {
+            #Info{
+                position:absolute;
+                min-height:100%;
+                z-index:100;
+                background-color: rgba(0, 0, 0, 0.8);
+                left:-100%;
+                width:100%;
+                color:white;
+            }
+            .animate{
+
+                border-radius:2%;
+                opacity:0.9 !important;
+                animation:openWindow;
+                padding:15px;
+                animation-duration:1500ms;
+                animation-iteration-count: 1;
+                left:0%   !important;
+            }
+
+            @keyframes openWindow{
+
+                0%{ left:-100%;}
+                100%{left:0%;}
+            }
+
+
+        }
+
+        hr{
+            border-color:black !important;
+        }
+        .pic{
+            height:20%;
+            border-radius:50%;
+            float:right;
+
+        }
+        h1,h2,h3{
+
+            font-family:'Roboto', 'sans-serif';
+            font-weight:bolder    !important;
+            text-shadow:1px 1px white;
+        }
+        .opaqueRest{
+            opacity:0.7;
+        }
+        .animate{
+
+            border-radius:2%;
+            opacity:0.9 !important;
+            animation:openWindow;
+            padding:15px;
+            animation-duration:1500ms;
+            animation-iteration-count: 1;
+            left:0%   !important;
+        }
+
+        @keyframes openWindow{
+
+            0%{ left:-40%;}
+            100%{left:0%;}
+        }
+
+
+    </style>
+
+
+</head>
+<body style="background-color:#f5d6b6;">
+
+
+<div class="floating-panel">
+    <input id="address" type="text" placeholder="Enter the location">
+    <input id="submit" style="padding:10px;" type="button" value="Show Location">
+    <button id="find" style="padding:10px;" >Find Nearby Eating Spots</button>
+</div>
+
+<div id="Info"></div>
+
+<div id="map"></div>
+
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAOtTdIwEcLKc4J2X2SsVGTa_Nrw9Wddm0&libraries=places&callback=initMap" async defer>
+</script>
+<script src="MapApi.js"></script>
+
+</body>
+</html>
