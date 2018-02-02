@@ -126,8 +126,8 @@ function showDetails(marker,result){
     if(result.opening_hours.open_now)
         document.getElementById('d').innerHTML += `<span style="color:rgba(0,128,0,0.42)"><span style="width:3px;height:3px;border-radius:50%;background-color:green;"> </span> Open Now</span>`;
 
-    //for(var i =0; i<result.opening_hours.weekday_text.length; i++)
-        document.getElementById('d').innerHTML += result.opening_hours.weekday_text + '<br>';
+    for(var i =0; i<result.opening_hours.weekday_text.length; i++)
+        document.getElementById('d').innerHTML += result.opening_hours.weekday_text[i] + '<br>';
 
     info.classList.toggle('animate');
 }
