@@ -4,7 +4,6 @@ var service;
 var info = document.getElementById('Info');
 var count = 0;
 var infoWindowPrev;
-var body = document.getElementsByTagName('body');
 
 function initMap(){
 
@@ -95,34 +94,40 @@ function putMarker(result){
     });
 }
 
-function displayTime(result){
 
-    console.log('secybitch');
-    if(result.opening_hours.open_now)
-        info.innerHTML += `<span style="color:rgba(0,128,0,0.42)"><span style="width:3px;height:3px;border-radius:50%;background-color:green;"> </span> Open Now</span>`;
-
-    for(var i =0; i<result.opening_hours.weekday_text.length; i++)
-        info.innerHTML += result.opening_hours.weekday_text + '\n';
-}
 
 function showDetails(marker,result){
 
     console.log(result);
     info.innerHTML = `<i class="large material-icons" onclick="info.classList.remove('animate');infoWindowPrev.close(); count++;" style="display:block;float:left; font-size:50px; ">close</i>
                         <div style="color:rgba(244,255,248,0.77);text-align:center;">
-                            <h1>${result.name}</h1><div style="display:flex"> <div style="display:flex; flex-flow:column;">${result.formatted_address}<br><br><div style="color:rgba(236,255,242,0.67)">${result.formatted_phone_number}</div></div> <img class="pic" src="${result.photos[0].getUrl({maxWidth: 200})}"></div>
+                            <h1>${result.name}</h1><div style="display:flex"> <div style="display:flex; flex-flow:column;"><div>${result.formatted_address}</div><br><br><div style="color:rgba(236,255,242,0.67)">${result.formatted_phone_number}</div></div> <img class="pic" src="${result.photos[0].getUrl({maxWidth: 200})}"></div>
                         </div>
                         <hr>    
                         <div style="display:flex">
-                             <div style="width:70%">
-                                     <h3 onload="displayTime(${result});">Opening Timings</h3>
+                              <div style="width:70%" id="openTime">
+                                     <h2>Opening Timings</h2>
 
                             </div>
                             <div style="width:30%;">
                                      <i style="color:yellow; font-size:54px;" class="large material-icons">star</i><b style="bottom:10px;font-family:'Roboto', 'sans-serif';font-weight:bolder !important;text-shadow:1px 1px white;">${result.rating}</b>
                             </div>
-                        </div> `;
+                        </div>
+                        <hr>
+                        <div><br><br>
+                           <a href="${result.website}"> <button style="padding:10px;display:block;margin:0 auto;">EXPLORE</button>
+                        </div>`;
 
+
+    if(result.opening_hours)
+    if(result.opening_hours.open_now)
+        document.getElementById('openTime').innerHTML += `<div style="color:rgb(0,128,0)"><h3 >Open Now</h3></div>`;
+
+    if(result.opening_hours)
+    for(let i =0; i<result.opening_hours.weekday_text.length; i++)
+        document.getElementById('openTime').innerHTML += result.opening_hours.weekday_text[i] + '<br>';
+    else
+        document.getElementById('openTime').innerHTML += 'Not Available';
 
     info.classList.toggle('animate');
 }
